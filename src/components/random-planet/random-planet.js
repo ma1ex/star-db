@@ -8,11 +8,7 @@ export default class RandomPlanet extends Component {
     swapiService = new SwapiService();
     
     state = {
-        id: null,
-        name: null,
-        population: null,
-        rotationPeriod: null,
-        diameter: null
+        planet: {}
     }
 
     constructor() {
@@ -21,34 +17,35 @@ export default class RandomPlanet extends Component {
         this.updatePlanet();
     }
 
+    // Собственное событие обновления данных планеты на основе трансформированных 
+    // данных из стороннего API в классе SwapiService
+    onPlanetLoaded = (planet) => {
+        // Т.к. начального состояния стэйта нету, можно присваивать данные напрямую
+        this.setState({planet});
+    };
+
     updatePlanet() {
         const id = Math.floor(Math.random() * 25) + 2;
         this.swapiService
             .getPlanet(id)
-            .then((planet) => {
-                this.setState({
-                    id,
-                    name: planet.name,
-                    population: planet.population,
-                    rotationPeriod: planet.rotation_period,
-                    diameter: planet.diameter
-                });
-            });
+            .then(this.onPlanetLoaded);
     }
     
     render() {
-        const { id, name, population, rotationPeriod, diameter } = this.state;
-        
+        const { planet: { id, name, population, rotationPeriod, diameter } } = this.state;
+        // Получение подходящего изображения с еще одного тематического ресурса,
+        // (starwars-visualguide.com) где id картинки соответствует id объекта 
+        // планеты, т.к. этот сервис тоже использует swapi.co
         return(
             <div className="random-planet bg-dark">
                 <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} className="img-fluid" alt="Planet" />
                 <div className="card">
                     <div className="card-body">
-                        <h4 className="card-title">{ name }</h4>
+                        <h4 className="card-title">{name}</h4>
                         <h6 className="card-subtitle mb-2 text-muted">Star Wars Planets</h6>
-                        <p className="card-text">Population: <span className="badge badge-dark">{ population }</span></p>
-                        <p className="card-text">Rotation period: <span className="badge badge-dark">{ rotationPeriod }</span></p>
-                        <p className="card-text">Diameter: <span className="badge badge-dark">{ diameter }</span></p>
+                        <p className="card-text">Population: <span className="badge badge-dark">{population}</span></p>
+                        <p className="card-text">Rotation period: <span className="badge badge-dark">{rotationPeriod}</span></p>
+                        <p className="card-text">Diameter: <span className="badge badge-dark">{diameter}</span></p>
                     </div>
                 </div>
             </div>
