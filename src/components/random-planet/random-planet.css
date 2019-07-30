@@ -1,11 +1,22 @@
 .random-planet {
+    width: 100%;
+    display: flex;
     margin: 20px 0 20px 0;
     padding: 15px;
 }
 
 .random-planet img {
-    width: 20%;
-    height: 20%;
-    float: left;
-    border-radius: 10px;
+    width: 200px;
+    height: 200px;
+    /* min-width: 220px; */
+    /* max-width: 20%; */
+    /* height: 20%; */
+    /* float: left; */
+    /* margin-right: 1rem; */
+    border-radius: 5px;
+}
+
+.badge-dark {
+    color: rgb(0, 188, 140);
+    background: hsl(0, 0%, 13%);
 }

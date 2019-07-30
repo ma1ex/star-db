@@ -13,13 +13,18 @@ export default class App extends Component {
     //
     render() {
         return (
-            <div className="container">
+            <div className="row">
                 <Header />
                 <RandomPlanet />
-                <ItemList />
-                <PersonDetails />
-                <PlanetDetails />
-                <StarshipDetails />
+                <div className="col-md-6">
+                    <ItemList />
+                </div>
+                <div className="col-md-6">
+                    <p>Choose a person from the list.</p>
+                    <PersonDetails />
+                    <PlanetDetails />
+                    <StarshipDetails />
+                </div>
             </div>
         )
     }

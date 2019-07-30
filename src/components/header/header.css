@@ -1,11 +1,12 @@
 nav {
     margin-top: 30px;
-}
-
-.navbar-nav {
-    margin-left: 50px;
+    width: 100%;
 }
 
 .btn-primary {
     margin: 5px;
+}
+
+.navbar-nav {
+    margin-left: 10px;
 }
