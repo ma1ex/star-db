@@ -12,14 +12,9 @@
     display: flex;
 }
 
-.random-planet img {
+.planet-img {
     width: 200px;
     height: 200px;
-    /* min-width: 220px; */
-    /* max-width: 20%; */
-    /* height: 20%; */
-    /* float: left; */
-    /* margin-right: 1rem; */
     border-radius: 5px;
 }
 

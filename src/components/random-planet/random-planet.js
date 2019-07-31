@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import SwapiService from '../../services/swapi-service';
 import Spinner from '../spinner';
+import ErrorIndicator from '../error-indicator';
 import './random-planet.css';
 
 export default class RandomPlanet extends Component {
@@ -25,31 +26,43 @@ export default class RandomPlanet extends Component {
         // Т.к. начального состояния стэйта нету, можно присваивать данные напрямую
         this.setState({
             planet,
+            loading: false,
+            error: false // флаг ошибки загрузки данных
+        });
+    };
+
+    //
+    onError = (err) => {
+        this.setState({
+            error: true,
             loading: false
         });
     };
 
     updatePlanet() {
         const id = Math.floor(Math.random() * 25) + 2;
+        // const id = 1200;
         this.swapiService
             .getPlanet(id)
-            .then(this.onPlanetLoaded);
+            .then(this.onPlanetLoaded)
+            .catch(this.onError); // отлов возможной ошибки
     }
     
     render() {
-        const { planet, loading } = this.state;
+        const { planet, loading, error } = this.state;
         
+        const hasData = !(loading || error);
+        // Компонент с выводом сообщений об ошибках
+        const errorMessage = error ? <ErrorIndicator /> : null;
         // В зависимости от булевого значения loading будет отображаться или
         // спиннер, пока данные планеты не загружены, или, собственно, данные планеты,
         // вынесенные в отдельный компонент
         const spinner = loading ? <Spinner /> : null;
-        const content = !loading ? <PlanetView planet={planet} /> : null;
+        const content = hasData ? <PlanetView planet={planet} /> : null;
 
-        // Получение подходящего изображения с еще одного тематического ресурса,
-        // (starwars-visualguide.com) где id картинки соответствует id объекта 
-        // планеты, т.к. этот сервис тоже использует swapi.co
-        return(
+        return (
             <div className="random-planet bg-dark">
+                {errorMessage}
                 {spinner}
                 {content}
             </div>
@@ -59,10 +72,12 @@ export default class RandomPlanet extends Component {
 
 const PlanetView = ({ planet }) => {
     const { id, name, population, rotationPeriod, diameter } = planet;
-    
+    // Получение подходящего изображения с еще одного тематического ресурса,
+    // (starwars-visualguide.com) где id картинки соответствует id объекта 
+    // планеты, т.к. этот сервис тоже использует swapi.co
     return (
         <div className="wrap">
-            <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} className="img-fluid" alt="Planet" />
+            <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} className="img-fluid planet-img" alt="Planet" />
             <div className="card">
                 <div className="card-body">
                     <h4 className="card-title">{name}</h4>
