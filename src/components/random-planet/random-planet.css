@@ -3,6 +3,13 @@
     display: flex;
     margin: 20px 0 20px 0;
     padding: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrap {
+    width: 100%;
+    display: flex;
 }
 
 .random-planet img {
