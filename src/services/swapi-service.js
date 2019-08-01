@@ -18,7 +18,7 @@ export default class SwapiService {
 
     // Коллекция всех персонажей
     async getAllPeople() {
-        const res = await this.getResource(`/people/`);
+        const res = await this.getResource('/people/');
         return res.results.map(this._transformPerson);
     }
 
@@ -63,7 +63,7 @@ export default class SwapiService {
 
     // Далее три приватных метода - преобразование полученных данных от внешнего
     // сервиса в понятные нашему приложению + изоляция и гарантия корректности данных
-    _transformPlanet(planet) {
+    _transformPlanet (planet) {
         const id = this._extractId(planet);
         return {
             id,
@@ -74,7 +74,7 @@ export default class SwapiService {
         };
     }
 
-    _transformStarship(starship) {
+    _transformStarship = (starship) => {
         return {
             id: this._extractId(starship),
             name: starship.name,
@@ -88,13 +88,13 @@ export default class SwapiService {
         };
     }
 
-    _transformPerson(person) {
+    _transformPerson = (person) => {
         return {
             id: this._extractId(person),
             name: person.name,
             gender: person.gender,
-            birthYear: person.birthYear,
-            eyeColor: person.eyeColor
+            birthYear: person.birth_year,
+            eyeColor: person.eye_color
         };
     }
 }

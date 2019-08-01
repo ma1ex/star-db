@@ -11,13 +11,14 @@ export default class RandomPlanet extends Component {
     
     state = {
         planet: {},
-        loading: true // флаг отображения спиннера
+        loading: true, // флаг отображения спиннера
+        error: false // флаг ошибки загрузки данных
     }
 
-    constructor() {
-        super();
+    componentDidMount() {
         // Инициализация метода для загрузки случайной планеты
         this.updatePlanet();
+        // this.interval = setInterval(this.updatePlanet, 10000);
     }
 
     // Собственное событие обновления данных планеты на основе трансформированных 
@@ -27,7 +28,7 @@ export default class RandomPlanet extends Component {
         this.setState({
             planet,
             loading: false,
-            error: false // флаг ошибки загрузки данных
+            error: false
         });
     };
 
@@ -39,7 +40,7 @@ export default class RandomPlanet extends Component {
         });
     };
 
-    updatePlanet() {
+    updatePlanet = () => {
         const id = Math.floor(Math.random() * 25) + 2;
         // const id = 1200;
         this.swapiService
