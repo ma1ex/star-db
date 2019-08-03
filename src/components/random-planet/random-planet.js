@@ -18,7 +18,12 @@ export default class RandomPlanet extends Component {
     componentDidMount() {
         // Инициализация метода для загрузки случайной планеты
         this.updatePlanet();
-        // this.interval = setInterval(this.updatePlanet, 10000);
+        this.interval = setInterval(this.updatePlanet, 10000);
+    }
+
+    //
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     // Собственное событие обновления данных планеты на основе трансформированных 

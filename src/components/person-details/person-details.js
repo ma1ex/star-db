@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import SwapiService from '../../services/swapi-service';
+import Spinner from '../spinner';
 import './person-details.css';
 
 export default class PersonDetails extends Component {
@@ -18,8 +19,11 @@ export default class PersonDetails extends Component {
     }
 
     // Обновление данных только в случае, если что-то действительно поменялось в
-    // состоянии компонента. Вызывается после того, как компонент обновился и
-    // отрендерился
+    // состоянии компонента. 
+    // Вызывается каждый раз после того, как компонент обновился и отрендерился.
+    // Если данный метод в итоге меняет состояние, то ОБЯЗАТЕЛЬНО нужно применить
+    // условие для проверки, что отслеживаемый параметр props действиельно изменился,
+    // иначе при изменении state этот метод будет вызываться бесконечно!
     componentDidUpdate(prevProps) {
         if (this.props.personId !== prevProps.personId) {
             this.updatePerson();
@@ -44,6 +48,7 @@ export default class PersonDetails extends Component {
     render() {
         if (!this.state.person) {
             return <span>Select a person from a list</span>;
+            // return <Spinner />
         }
       
         const { id, name, gender, birthYear, eyeColor } = this.state.person;
