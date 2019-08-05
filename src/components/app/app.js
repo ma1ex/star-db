@@ -9,12 +9,13 @@ import RandomPlanet from '../random-planet';
 
 import './app.css';
 import ErrorIndicator from '../error-indicator';
-import ErrorButton from '../error-button/';
+import ErrorButton from '../error-button';
+import PeoplePage from '../people-page';
 
 export default class App extends Component {
     
     state = {
-        selectedPerson: 1,
+        //selectedPerson: 1,
         hasError: false
     }
 
@@ -25,11 +26,11 @@ export default class App extends Component {
     }
 
     // Событие переключения id персонажа
-    onPersonSelected = (id) => {
+    /* onPersonSelected = (id) => {
         this.setState({
             selectedPerson: id
         });
-    };
+    }; */
 
     render() {
         //
@@ -46,12 +47,8 @@ export default class App extends Component {
                     <ErrorButton />
                 </div>
 
-                <div className="col-md-6">
-                    <ItemList onItemSelected={this.onPersonSelected} />
-                </div>
-                <div className="col-md-6">
-                    <PersonDetails personId={this.state.selectedPerson} />
-                </div>
+                <PeoplePage />
+                
             </div>
         )
     }
