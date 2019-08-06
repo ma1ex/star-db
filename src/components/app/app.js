@@ -15,7 +15,6 @@ import PeoplePage from '../people-page';
 export default class App extends Component {
     
     state = {
-        //selectedPerson: 1,
         hasError: false
     }
 
@@ -24,13 +23,6 @@ export default class App extends Component {
         console.log('componentDidCatch()');
         this.setState({hasError: true});
     }
-
-    // Событие переключения id персонажа
-    /* onPersonSelected = (id) => {
-        this.setState({
-            selectedPerson: id
-        });
-    }; */
 
     render() {
         //
@@ -47,6 +39,8 @@ export default class App extends Component {
                     <ErrorButton />
                 </div>
 
+                <PeoplePage />
+                <PeoplePage />
                 <PeoplePage />
                 
             </div>

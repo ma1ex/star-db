@@ -14,12 +14,12 @@ export default class PeoplePage extends Component {
     };
 
     componentDidCatch (error, info) {
-
         this.setState({
             hasError: true
         });
     }
 
+    // Событие переключения id персонажа
     onPersonSelected = (selectedPerson) => {
         this.setState({
             selectedPerson

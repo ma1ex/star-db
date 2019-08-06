@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import SwapiService from '../../services/swapi-service';
-import Spinner from '../spinner';
+import ErrorButton from '../error-button';
 import './person-details.css';
 
 export default class PersonDetails extends Component {
@@ -62,6 +62,9 @@ export default class PersonDetails extends Component {
                     <p className="card-text">Birth Year: <span className="badge badge-dark">{birthYear}</span></p>
                     <p className="card-text">Eye Color: <span className="badge badge-dark">{eyeColor}</span></p>
                 </div>
+                <div>
+                    <ErrorButton />
+                </div> 
             </div>
         )
     }
