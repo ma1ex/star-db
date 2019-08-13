@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 
-import SwapiService from '../../services/swapi-service';
 import Spinner from '../spinner';
 import './item-list.css';
 
 export default class ItemList extends Component {
 
-    swapiService = new SwapiService();
-
     state = {
-        peopleList: null
+        ItemList: null
     };
     
     componentDidMount() {
-        this.swapiService
-            .getAllPeople()
-            .then((peopleList) => {
-                this.setState({peopleList});
+        
+        const { getData } = this.props;
+
+        getData()
+            .then((ItemList) => {
+                this.setState({ItemList});
             });
     }
 
@@ -32,12 +31,12 @@ export default class ItemList extends Component {
 
     render() {
 
-        const { peopleList } = this.state;
+        const { ItemList } = this.state;
         // Отображение прелоадера, пока не подгрузятся данные
-        if (!peopleList) {
+        if (!ItemList) {
             return <Spinner />;
         }
-        const items = this.renderItems(peopleList);
+        const items = this.renderItems(ItemList);
         
         return (
             <div className="list-group">

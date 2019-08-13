@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+
+import SwapiService from '../../services/swapi-service';
 import Header from '../header';
 import ItemList from '../item-list';
 import PersonDetails from '../person-details';
@@ -13,6 +15,8 @@ import ErrorButton from '../error-button';
 import PeoplePage from '../people-page';
 
 export default class App extends Component {
+    
+    swapiService = new SwapiService();
     
     state = {
         hasError: false
@@ -40,9 +44,15 @@ export default class App extends Component {
                 </div>
 
                 <PeoplePage />
-                <PeoplePage />
-                <PeoplePage />
                 
+                <div className="col-md-6">
+                    <ItemList onItemSelected={this.onPersonSelected}
+                        getData={this.swapiService.getAllPlanets} />
+                </div>
+                <div className="col-md-6">
+                    <PersonDetails personId={this.state.selectedPerson} />
+                </div>
+
             </div>
         )
     }
