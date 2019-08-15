@@ -47,7 +47,12 @@ export default class App extends Component {
                 
                 <div className="col-md-6">
                     <ItemList onItemSelected={this.onPersonSelected}
-                        getData={this.swapiService.getAllPlanets} />
+                        getData={this.swapiService.getAllPlanets}
+                        renderItem={(item) => (
+                            <div>{item.name} 
+                                <span className="badge badge-dark">{item.population}</span>&nbsp;
+                                <span className="badge badge-dark">{item.diameter}</span></div>
+                            ) } />
                 </div>
                 <div className="col-md-6">
                     <PersonDetails personId={this.state.selectedPerson} />

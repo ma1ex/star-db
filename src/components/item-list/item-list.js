@@ -21,10 +21,13 @@ export default class ItemList extends Component {
 
     // Получение из коллекции персон id и name для построения списка
     renderItems (arr) {
-        return arr.map(({id, name}) => {
+        return arr.map((item) => {
+            const { id } = item;
+            const label = this.props.renderItem(item);
+            // const {} = this.props.renderItem(item);
             return (
                 <a href="#!" key={ id } onClick={() => this.props.onItemSelected(id)} 
-                    className="list-group-item list-group-item-action">{name}</a>
+                    className="list-group-item list-group-item-action">{label}</a>
             );
         });
     }

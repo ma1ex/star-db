@@ -36,15 +36,20 @@ export default class PeoplePage extends Component {
         }
 
         return (
-            <React.Fragment>
+            <div className="page-container">
                 <div className="col-md-6">
                     <ItemList onItemSelected={this.onPersonSelected}
-                        getData={this.swapiService.getAllPeople} />
+                        getData={this.swapiService.getAllPeople}
+                        renderItem={(item) => (
+                            <div>{item.name} 
+                                <span className="badge badge-dark">{item.gender}</span>&nbsp;
+                                <span className="badge badge-dark">{item.birthYear}</span></div>
+                            ) } />
                 </div>
                 <div className="col-md-6">
                     <PersonDetails personId={this.state.selectedPerson} />
                 </div>
-            </React.Fragment>
+            </div>
         );
     }
 }
