@@ -46,13 +46,16 @@ export default class App extends Component {
                 <PeoplePage />
                 
                 <div className="col-md-6">
-                    <ItemList onItemSelected={this.onPersonSelected}
-                        getData={this.swapiService.getAllPlanets}
-                        renderItem={(item) => (
+                    <ItemList
+                        onItemSelected={this.onPersonSelected}
+                        getData={this.swapiService.getAllPlanets}>
+                        {(item) => (
                             <div>{item.name} 
                                 <span className="badge badge-dark">{item.population}</span>&nbsp;
-                                <span className="badge badge-dark">{item.diameter}</span></div>
-                            ) } />
+                                <span className="badge badge-dark">{item.diameter}</span>
+                            </div>
+                        )}
+                    </ItemList>
                 </div>
                 <div className="col-md-6">
                     <PersonDetails personId={this.state.selectedPerson} />
