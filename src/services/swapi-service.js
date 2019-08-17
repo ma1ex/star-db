@@ -2,8 +2,9 @@
 
 export default class SwapiService {
     
-    // Базовый URL API
+    // Базовые URL API
     _apiBase = 'https://swapi.co/api';
+    _imageBase = 'https://starwars-visualguide.com/assets/img';
     
     // Получение JSON-объекта по URL
     async getResource(url) {
@@ -48,8 +49,23 @@ export default class SwapiService {
 
     // Корабль по ID
     getStarship = async (id) => {
-        const starship = this.getResource(`/starships/${id}/`);
+        const starship = await this.getResource(`/starships/${id}/`);
         return this._transformStarship(starship);
+    };
+
+    // Получение изображения объекта по ID из другого стороннего источника
+    getPersoneImage = ({ id }) => {
+        return `${this._imageBase}/characters/${id}.jpg`;
+    };
+
+    // Получение изображения объекта по ID из другого стороннего источника
+    getStarshipImage = ({ id }) => {
+        return `${this._imageBase}/starships/${id}.jpg`;
+    };
+
+    // Получение изображения объекта по ID из другого стороннего источника
+    getPlanetImage = ({ id }) => {
+        return `${this._imageBase}/planets/${id}.jpg`;
     };
 
     // "Вычленение" id из наиболее подходящего поля полученных данных от удаленного
@@ -80,11 +96,11 @@ export default class SwapiService {
             name: starship.name,
             model: starship.model,
             manufacturer: starship.manufacturer,
-            costInCredits: starship.costInCredits,
+            costInCredits: starship.cost_in_credits,
             length: starship.length,
             crew: starship.crew,
             passengers: starship.passengers,
-            cargoCapacity: starship.cargoCapacity
+            cargoCapacity: starship.cargo_capacity
         };
     };
 

@@ -2,32 +2,11 @@ import React, { Component } from 'react';
 
 import SwapiService from '../../services/swapi-service';
 import ItemList from '../item-list/item-list';
-import PersonDetails from '../person-details/person-details';
-import ErrorIndicator from '../error-indicator/error-indicator';
+import ItemDetails from '../item-details/';
+import ErrorBoundry from '../error-boundry/';
 import Row from '../row';
 
 import './people-page.css';
-
-class ErrorBoundry extends Component {
-    
-    state = {
-        hasError: false
-    };
-    
-    componentDidCatch () {
-        this.setState({
-            hasError: true
-        });
-    }
-    
-    render() {
-        if (this.state.hasError) {
-            return <ErrorIndicator />;
-        }
-        
-        return this.props.children;
-    }
-}
 
 export default class PeoplePage extends Component {
 
@@ -47,6 +26,8 @@ export default class PeoplePage extends Component {
 
     render() {
 
+        const { getPerson, getPersoneImage } = this.swapiService;
+        
         const itemList = (
             <ItemList 
                 onItemSelected={this.onPersonSelected}
@@ -62,7 +43,9 @@ export default class PeoplePage extends Component {
         );
 
         const personDetails = (
-            <PersonDetails personId={this.state.selectedPerson} />
+            <ErrorBoundry>
+                <ItemDetails itemId={this.state.selectedPerson} getData={ getPerson } getImageUrl={getPersoneImage} />
+            </ErrorBoundry>
         );
 
         return (

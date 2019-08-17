@@ -2,20 +2,21 @@ import React, { Component } from 'react';
 
 import SwapiService from '../../services/swapi-service';
 import ErrorButton from '../error-button';
-import './person-details.css';
+import './item-details.css';
 
-export default class PersonDetails extends Component {
+export default class ItemDetails extends Component {
 
     swapiService = new SwapiService();
 
     state = {
-        person: null
+        item: null,
+        image: null
     }
 
     // Отображение данных с сервера после построения DOM.
     // В React`е используется вместо конструктора
     componentDidMount() {
-        this.updatePerson();
+        this.updateItem();
     }
 
     // Обновление данных только в случае, если что-то действительно поменялось в
@@ -25,37 +26,40 @@ export default class PersonDetails extends Component {
     // условие для проверки, что отслеживаемый параметр props действиельно изменился,
     // иначе при изменении state этот метод будет вызываться бесконечно!
     componentDidUpdate(prevProps) {
-        if (this.props.personId !== prevProps.personId) {
-            this.updatePerson();
+        if (this.props.itemId !== prevProps.itemId) {
+            this.updateItem();
         }
     }
 
     // Метод обновления данных
-    updatePerson() {
-        const { personId } = this.props;
+    updateItem() {
+        const { itemId, getData, getImageUrl } = this.props;
         // Если Id не передан в props, то перерисовывать компонент не нужно
-        if (!personId) {
+        if (!itemId) {
             return;
         }
 
-        this.swapiService
-            .getPerson(personId)
-            .then((person) => {
-                this.setState({ person });
+        getData(itemId)
+            .then((item) => {
+                this.setState({ 
+                    item,
+                    image: getImageUrl(item)
+                });
             });
     }
 
     render() {
-        if (!this.state.person) {
+        const  { item, image } = this.state;
+        
+        if (!item) {
             return <span>Select a person from a list</span>;
-            // return <Spinner />
         }
       
-        const { id, name, gender, birthYear, eyeColor } = this.state.person;
+        const { name, gender, birthYear, eyeColor } = item;
         
         return (
             <div className="person-details card">
-                <img className="person-image" src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} alt="Character" />
+                <img className="person-image" src={image} alt="Character" />
                 <div className="card-body">
                     <h4 className="card-title">{name}</h4>
                     <p className="card-text">Gender: <span className="badge badge-dark">{gender}</span></p>
