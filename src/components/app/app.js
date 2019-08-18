@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import SwapiService from '../../services/swapi-service';
 import Header from '../header';
-import ItemDetails from '../item-details/';
+import ItemDetails, { Record } from '../item-details/item-details';
 import RandomPlanet from '../random-planet';
 
 import './app.css';
@@ -18,7 +18,7 @@ export default class App extends Component {
     
     render() {
         
-        return (
+        /* return (
             <ErrorBoundry>
                 <div className="row">
                     <Header />
@@ -32,16 +32,28 @@ export default class App extends Component {
                     
                 </div>
             </ErrorBoundry>
-        )
+        ) */
         
-        /* const { getPerson, getStarship, getPersoneImage, getStarshipImage } = this.swapiService;
+        const { getPerson, getStarship, getPersoneImage, getStarshipImage } = this.swapiService;
 
         const personDetails = (
-            <ItemDetails itemId={11} getData={ getPerson } getImageUrl={getPersoneImage} />
+            <ItemDetails 
+                itemId={11} getData={ getPerson } 
+                getImageUrl={getPersoneImage}>
+                    <Record field="gender" label="Gender" />
+                    <Record field="eyeColor" label="Eye Color" />
+                    <Record field="birthYear" label="Birth Year" />
+            </ItemDetails>
         );
 
         const starshipDetails = (
-            <ItemDetails itemId={5} getData={ getStarship } getImageUrl={getStarshipImage} />
+            <ItemDetails 
+                itemId={5} getData={ getStarship } 
+                getImageUrl={getStarshipImage}>
+                <Record field="model" label="Model" />
+                <Record field="length" label="Length" />
+                <Record field="costInCredits" label="Cost" />
+        </ItemDetails>
         );
         
         return (
@@ -54,6 +66,6 @@ export default class App extends Component {
                     <Row left={personDetails} right={starshipDetails} />
                 </div>
             </ErrorBoundry>
-        ) */
+        )
     }
 }

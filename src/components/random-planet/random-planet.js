@@ -83,7 +83,7 @@ const PlanetView = ({ planet }) => {
     // планеты, т.к. этот сервис тоже использует swapi.co
     return (
         <div className="wrap">
-            <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} className="img-fluid planet-img" alt="Planet" />
+            <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} className="img-fluid planet-img" alt={`Planet ${name}`} />
             <div className="card">
                 <div className="card-body">
                     <h4 className="card-title">{name}</h4>

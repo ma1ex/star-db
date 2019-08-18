@@ -4,6 +4,21 @@ import SwapiService from '../../services/swapi-service';
 import ErrorButton from '../error-button';
 import './item-details.css';
 
+/**
+ * Мини-компонент для отрисовки детализированных данных запрашиваемого объекта.
+ * Попытка максимального переиспользования написанного кода :)
+ */
+const Record = ({item, field, label}) => {
+    return (
+        <p className="card-text">{label}: <span className="badge badge-dark">{item[field]}</span></p>
+    );
+};
+
+export {
+    Record
+};
+
+
 export default class ItemDetails extends Component {
 
     swapiService = new SwapiService();
@@ -54,7 +69,7 @@ export default class ItemDetails extends Component {
         if (!item) {
             return <span>Select a person from a list</span>;
         }
-      
+
         const { name, gender, birthYear, eyeColor } = item;
         
         return (
@@ -62,9 +77,11 @@ export default class ItemDetails extends Component {
                 <img className="person-image" src={image} alt="Character" />
                 <div className="card-body">
                     <h4 className="card-title">{name}</h4>
-                    <p className="card-text">Gender: <span className="badge badge-dark">{gender}</span></p>
-                    <p className="card-text">Birth Year: <span className="badge badge-dark">{birthYear}</span></p>
-                    <p className="card-text">Eye Color: <span className="badge badge-dark">{eyeColor}</span></p>
+                    {
+                        React.Children.map(this.props.children, (child) => {
+                            return React.cloneElement(child, {item});
+                        })
+                    }
                 </div>
                 <div>
                     <ErrorButton />
