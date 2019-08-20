@@ -33,8 +33,10 @@ export default class App extends Component {
                 </div>
             </ErrorBoundry>
         ) */
+
+        // =====================================================================
         
-        const { getPerson, getStarship, getPersoneImage, getStarshipImage } = this.swapiService;
+        /* const { getPerson, getStarship, getPersoneImage, getStarshipImage } = this.swapiService;
 
         const personDetails = (
             <ItemDetails 
@@ -66,6 +68,25 @@ export default class App extends Component {
                     <Row left={personDetails} right={starshipDetails} />
                 </div>
             </ErrorBoundry>
+        ) */
+        
+        // =====================================================================
+
+        return (
+            <ErrorBoundry>
+                <div className="row">
+                    <Header />
+                    <RandomPlanet />
+
+                    <div className="container button-row">
+                        <ErrorButton />
+                    </div>
+
+                    <PeoplePage />
+                    
+                </div>
+            </ErrorBoundry>
         )
+
     }
 }
