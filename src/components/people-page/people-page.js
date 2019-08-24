@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 
-import SwapiService from '../../services/swapi-service';
-import ItemList from '../item-list/item-list';
-import ItemDetails, { Record } from '../item-details/item-details';
 import ErrorBoundry from '../error-boundry/';
 import Row from '../row';
+import { PersonList, PersonDetails } from '../sw-components';
 
 import './people-page.css';
 
 export default class PeoplePage extends Component {
 
-    swapiService = new SwapiService();
-    
     state = {
         selectedPerson: 1,
         hasError: false
@@ -26,38 +22,26 @@ export default class PeoplePage extends Component {
 
     render() {
 
-        const { getPerson, getPersoneImage } = this.swapiService;
-        
         const itemList = (
-            <ItemList 
-                onItemSelected={this.onPersonSelected}
-                getData={this.swapiService.getAllPeople}>
-                
+            <PersonList onItemSelected={this.onPersonSelected}>
                 {(item) => (
                     <div>{item.name} 
                         <span className="badge badge-dark">{item.gender}</span>&nbsp;
                         <span className="badge badge-dark">{item.birthYear}</span>
                     </div>
                 )}
-            </ItemList>
-        );
-
-        const personDetails = (
-            <ErrorBoundry>
-                <ItemDetails 
-                    itemId={this.state.selectedPerson} 
-                    getData={ getPerson } 
-                    getImageUrl={getPersoneImage}>
-                        <Record field="gender" label="Gender" />
-                        <Record field="eyeColor" label="Eye Color" />
-                        <Record field="birthYear" label="Birth Year" />
-                </ItemDetails>
-            </ErrorBoundry>
+            </PersonList>
         );
 
         return (
             <ErrorBoundry>
-                <Row left={ itemList } right={ personDetails } />
+                <Row left={
+                        itemList
+                    } 
+                     right={
+                        <PersonDetails itemId={this.state.selectedPerson} />
+                    }
+                />
             </ErrorBoundry>
         );
     }
