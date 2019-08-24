@@ -11,6 +11,14 @@ import ErrorBoundry from '../error-boundry';
 import ErrorButton from '../error-button';
 import PeoplePage from '../people-page';
 import Row from '../row';
+import {
+    PersonDetails,
+    PlanetDetails,
+    StarshipDetails,
+    PersonList,
+    PlanetList,
+    StarshipList
+  } from '../sw-components';
 
 export default class App extends Component {
     
@@ -72,6 +80,18 @@ export default class App extends Component {
         
         // =====================================================================
 
+        const { getStarship, getStarshipImage } = this.swapiService;
+
+        const starshipDetails = (
+            <ItemDetails 
+                itemId={5} getData={ getStarship } 
+                getImageUrl={getStarshipImage}>
+                <Record field="model" label="Model" />
+                <Record field="length" label="Length" />
+                <Record field="costInCredits" label="Cost" />
+            </ItemDetails>
+        );
+
         return (
             <ErrorBoundry>
                 <div className="row">
@@ -83,6 +103,10 @@ export default class App extends Component {
                     </div>
 
                     <PeoplePage />
+
+                    
+
+                    <Row left={null} right={starshipDetails} />
                     
                 </div>
             </ErrorBoundry>
