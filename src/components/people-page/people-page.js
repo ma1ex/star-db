@@ -22,21 +22,10 @@ export default class PeoplePage extends Component {
 
     render() {
 
-        const itemList = (
-            <PersonList onItemSelected={this.onPersonSelected}>
-                {(item) => (
-                    <div>{item.name} 
-                        <span className="badge badge-dark">{item.gender}</span>&nbsp;
-                        <span className="badge badge-dark">{item.birthYear}</span>
-                    </div>
-                )}
-            </PersonList>
-        );
-
         return (
             <ErrorBoundry>
                 <Row left={
-                        itemList
+                        <PersonList onItemSelected={this.onPersonSelected} />
                     } 
                      right={
                         <PersonDetails itemId={this.state.selectedPerson} />

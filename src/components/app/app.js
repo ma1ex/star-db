@@ -33,28 +33,11 @@ export default class App extends Component {
 
                     <PeoplePage />
 
-                    <Row left={
-                        <StarshipList>
-                            {(item) => (
-                                <div>{item.name} 
-                                    <span className="badge badge-dark">{item.model}</span>&nbsp;
-                                    <span className="badge badge-dark">{item.length}</span>&nbsp;
-                                </div>
-                            )}
-                        </StarshipList>
-                    } right={
+                    <Row left={ <StarshipList /> } right={
                         <StarshipDetails itemId={9} />
                     } />
 
-                    <Row left={
-                        <PlanetList>
-                            {(item) => (
-                                <div>{item.name} 
-                                    <span className="badge badge-dark">{item.population}</span>&nbsp;
-                                </div>
-                            )}
-                        </PlanetList>
-                    } right={
+                    <Row left={ <PlanetList /> } right={
                         <PlanetDetails itemId={4} />
                     } />
                     
