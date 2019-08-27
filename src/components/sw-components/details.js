@@ -1,20 +1,7 @@
 import React from 'react';
 
 import ItemDetails, { Record } from '../item-details/item-details';
-// import SwapiService from '../../services/swapi-service';
 import { SwapiServiceConsumer } from '../swapi-service-context';
-
-// const swapiService = new SwapiService();
-
-/* const {
-    getPerson,
-    getPlanet,
-    getStarship,
-    getPersoneImage,
-    getPlanetImage,
-    getStarshipImage
-} = swapiService; */
-
 
 const PersonDetails = ({ itemId }) => {
     return (
