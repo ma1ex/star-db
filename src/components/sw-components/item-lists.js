@@ -1,11 +1,6 @@
 import React from 'react';
 import ItemList from '../item-list';
-import { withData } from '../hoc-helpers';
-import SwapiService from '../../services/swapi-service';
-
-const swapiService = new SwapiService();
-
-const { getAllPeople, getAllStarships, getAllPlanets } = swapiService;
+import { withData, withSwapiService } from '../hoc-helpers';
 
 // =============================================================================
 
@@ -56,9 +51,36 @@ const renderPlanet = ({ name, diameter, population }) =>
  *      применятся еще одна функция.
  * В контексте React - это "Композиция компонентов высшего порядка"
  */
-const PersonList = withData(withChildFunction(ItemList, renderPerson), getAllPeople);
-const PlanetList = withData(withChildFunction(ItemList, renderPlanet), getAllPlanets);
-const StarshipList = withData(withChildFunction(ItemList, renderStarship), getAllStarships);
+
+const mapPersonMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getAllPeople
+    };
+};
+const PersonList = withSwapiService (
+        withData(withChildFunction(ItemList, renderPerson)),
+        mapPersonMethodsToProps
+    );
+
+const mapPlanetMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getAllPlanets
+    };
+};
+const PlanetList = withSwapiService (
+        withData(withChildFunction(ItemList, renderPlanet)),
+        mapPlanetMethodsToProps
+    )
+
+const mapStarshipMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getAllStarships
+    };
+};
+const StarshipList = withSwapiService (
+        withData(withChildFunction(ItemList, renderStarship)),
+        mapStarshipMethodsToProps
+    )
 
 export {
     PersonList,
